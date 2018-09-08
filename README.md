@@ -1,4 +1,4 @@
-Code to reproduce ImageNet in 18 minutes, by Andrew Shaw and Yaroslav Bulatov (also thanks to Jeremy Howard)
+Code to reproduce ImageNet in 18 minutes, by Andrew Shaw and Yaroslav Bulatov (also thanks to Jeremy Howard).
 
 
 Pre-requisites: Python 3.6 or higher
@@ -25,7 +25,8 @@ Machines print progress to local stdout as well as logging TensorBoard event fil
 
 1. launch tensorboard using tools/launch_tensorboard.py
 
-That will provide a link to tensorboard instance which has loss graph under "losses" group
+That will provide a link to tensorboard instance which has loss graph under "losses" group. You'll see something like this under "Losses" tab
+<img src='https://raw.githubusercontent.com/diux-dev/imagenet18/master/tensorboard.png'>
 
 2. Connect to one of the instances using instructions printed during launch. Look for something like this
 
