@@ -59,7 +59,7 @@ four_machines = [
 # 19:04 to 93.0
 # events: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-16.02.8
 # logs: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-8.tar 
-lr = 0.235 * 8
+lr = 0.24 * 8
 scale_224 = 224/128
 eight_machines = [
   {'ep':0,  'sz':128, 'bs':128, 'trndir':'-sz/160'},
