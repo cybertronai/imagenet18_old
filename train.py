@@ -79,25 +79,23 @@ eight_machines = [
 # 16:08 to 93.04 (after prewarming)
 # events: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-16.02.thu16
 # logs: https://s3.amazonaws.com/yaroslavvb/logs/logs/imagenet-16.cmd.tar
-lr = 0.24 * 8
-bs224 = 224
-scale_224 = bs224/64
+lr = 0.235 * 8 # 
+bs = 64
 sixteen_machines = [
     {'ep':0,  'sz':128, 'bs':64, 'trndir':'-sz/160'},
     {'ep':(0,6),  'lr':(lr,lr*2)},
     {'ep':6,            'bs':128, 'keep_dl':True},
     {'ep':6,      'lr':lr*2},
-    {'ep':(11,14), 'lr':(lr*2,lr)}, # trying one cycle
-    {'ep':14, 'sz':224, 'bs':64, 'trndir':'-sz/352', 'min_scale':0.087,
-                  'lr':lr},
-    {'ep':17,           'bs':bs224, 'keep_dl':True},
-    {'ep':(17,23),     'lr':(lr,lr/10*scale_224)},
-    {'ep':(23,29),     'lr':(lr/10*scale_224,lr/100*scale_224)},
-    {'ep':29, 'sz':288, 'bs':128, 'min_scale':0.5, 'rect_val':True},
-    {'ep':(29,37),'lr':(lr/100,lr/1000)},
-    {'ep':(37,40),'lr':lr/1000}
+    {'ep':16, 'sz':224,'bs':64}, # todo: increase this bs
+    {'ep':16,      'lr':lr},
+    {'ep':19,           'bs':192, 'keep_dl':True},
+    {'ep':19,     'lr':2*lr/(10/1.5)},
+    {'ep':31,     'lr':2*lr/(100/1.5)},
+    {'ep':37, 'sz':288, 'bs':128, 'min_scale':0.5, 'rect_val':True},
+    {'ep':37,     'lr':2*lr/100},
+    {'ep':(38,50),'lr':2*lr/1000}
 ]
-
+  
 schedules = {1: one_machine,
              4: four_machines,
              8: eight_machines,
