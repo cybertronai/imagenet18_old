@@ -10,7 +10,7 @@ python train.py  # pre-warming
 python train.py 
 ```
 
-Additionally there are 8 machine and 1 machine configurations
+To run with smaller number of machines:
 
 ```
 python train.py --machines=1
