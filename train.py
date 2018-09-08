@@ -16,6 +16,9 @@ parser.add_argument('--machines', type=int, default=16,
                     help="how many machines to use")
 args = parser.parse_args()
 
+# 109:12 to 93.00
+# events: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-1
+# logs: https://s3.amazonaws.com/yaroslavvb/logs/imagenet1.tar
 lr = 1.0
 scale_224 = 224/512
 scale_288 = 128/512
@@ -73,11 +76,11 @@ eight_machines = [
   {'ep':(29,35),'lr':(lr/100,lr/1000)}
 ]
 
-# 16:08 to 93.04
+# 16:08 to 93.04 (after prewarming)
 # events: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-16.02.thu16
 # logs: https://s3.amazonaws.com/yaroslavvb/logs/logs/imagenet-16.cmd.tar
-lr = 0.24 * 8 # 8 = num tasks
-bs224 = 224 # change to 192 if OOM
+lr = 0.24 * 8
+bs224 = 224
 scale_224 = bs224/64
 sixteen_machines = [
     {'ep':0,  'sz':128, 'bs':64, 'trndir':'-sz/160'},
