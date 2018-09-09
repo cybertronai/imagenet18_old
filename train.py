@@ -78,7 +78,7 @@ eight_machines = [
 
 # 16:08 to 93.04 (after prewarming)
 # events: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-16.02.thu16
-# logs: https://s3.amazonaws.com/yaroslavvb/logs/logs/imagenet-16.cmd.tar
+# logs: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-16.cmd.tar
 lr = 0.235 * 8 # 
 bs = 64
 sixteen_machines = [
