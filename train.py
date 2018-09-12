@@ -20,19 +20,16 @@ args = parser.parse_args()
 # events: https://s3.amazonaws.com/yaroslavvb/logs/imagenet-1
 # logs: https://s3.amazonaws.com/yaroslavvb/logs/imagenet1.tar
 lr = 1.0
-scale_224 = 224/512
-scale_288 = 128/512
+bs = [512, 224, 128] # largest batch size that fits in memory for each image size
+bs_scale = [x/bs[0] for x in bs]
 one_machine = [
-  {'ep':0,  'sz':128, 'bs':512, 'trndir':'-sz/160'},
-  {'ep':(0,5),  'lr':(lr,lr*2)}, # lr warmup is better with --init-bn0
-  {'ep':5, 'lr':lr},
-  {'ep':14, 'sz':224, 'bs':224,
-                'lr':lr*scale_224},
-  {'ep':16,     'lr':lr/10*scale_224},
-  {'ep':27,     'lr':lr/100*scale_224},
-  {'ep':32, 'sz':288, 'bs':128, 'min_scale':0.5, 'rect_val':True,
-                'lr':lr/100*scale_288},
-  {'ep':(33,35),'lr':lr/1000*scale_288}
+  {'ep':(0,7),  'lr':(lr,lr*2)}, # lr warmup is better with --init-bn0
+  {'ep':(7,13), 'lr':(lr*2,lr/4)}, # trying one cycle
+  {'ep':13, 'sz':224, 'bs':bs[1], 'trndir':'-sz/352', 'min_scale':0.087},
+  {'ep':(13,22),'lr':(lr*bs_scale[1],lr/10*bs_scale[1])},
+  {'ep':(22,25),'lr':(lr/10*bs_scale[1],lr/100*bs_scale[1])},
+  {'ep':25, 'sz':288, 'bs':bs[2], 'min_scale':0.5, 'rect_val':True},
+  {'ep':(25,28),'lr':(lr/100*bs_scale[2],lr/1000*bs_scale[2])}
 ]
 
 # 29:44 to 93.05
@@ -49,8 +46,8 @@ four_machines = [
   {'ep':(11,13), 'lr':(lr*2,lr)}, # trying one cycle
   {'ep':13, 'sz':224, 'bs':bs[1], 'trndir': '-sz/352', 'min_scale': 0.087},
   {'ep':13,     'lr':lr*bs_scale[1]},
-  {'ep':(16,23),'lr':(lr*bs_scale[1],lr/10*bs_scale[1])},
-  {'ep':(23,28),'lr':(lr/10*bs_scale[1],lr/100*bs_scale[1])},
+  {'ep':(16,24),'lr':(lr*bs_scale[1],lr/10*bs_scale[1])},
+  {'ep':(24,28),'lr':(lr/10*bs_scale[1],lr/100*bs_scale[1])},
   {'ep':28, 'sz':288, 'bs':bs[2], 'min_scale':0.5, 'rect_val':True},
   {'ep':(28,30),'lr':(lr/100*bs_scale[2],lr/1000*bs_scale[2])}
 ]
@@ -73,7 +70,7 @@ eight_machines = [
   {'ep':(17,23),'lr':(lr,lr/10*scale_224)},
   {'ep':(23,29),'lr':(lr/10*scale_224,lr/100*scale_224)},
   {'ep':29, 'sz':288, 'bs':128, 'min_scale':0.5, 'rect_val':True},
-  {'ep':(29,35),'lr':(lr/100,lr/1000)}
+  {'ep':(29,36),'lr':(lr/100,lr/1000)}
 ]
 
 # 16:08 to 93.04 (after prewarming)
