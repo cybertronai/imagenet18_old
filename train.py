@@ -23,6 +23,7 @@ lr = 1.0
 bs = [512, 224, 128] # largest batch size that fits in memory for each image size
 bs_scale = [x/bs[0] for x in bs]
 one_machine = [
+  {'ep':0,  'sz':128, 'bs':bs[0], 'trndir':'-sz/160'},
   {'ep':(0,7),  'lr':(lr,lr*2)}, # lr warmup is better with --init-bn0
   {'ep':(7,13), 'lr':(lr*2,lr/4)}, # trying one cycle
   {'ep':13, 'sz':224, 'bs':bs[1], 'trndir':'-sz/352', 'min_scale':0.087},
