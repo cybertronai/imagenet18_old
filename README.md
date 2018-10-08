@@ -19,6 +19,9 @@ python train.py --machines=8
 python train.py --machines=16
 ```
 
+Your AWS account needs to have high enough limit in order to reserve this number of p3.16xlarge instances. The code will set up necessary infrastructure like EFS, VPC, subnets, keypairs and placement groups. Therefore permissions for these those resources are needed.
+
+
 # Checking progress
 
 Machines print progress to local stdout as well as logging TensorBoard event files to EFS. You can:
