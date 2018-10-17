@@ -1,10 +1,12 @@
-from torch import nn
+import torch.nn as nn
 import torch
-
+import math
 import torch.utils.model_zoo as model_zoo
+
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152']
+
 
 model_urls = {
     'resnet18': 'https://download.pytorch.org/models/resnet18-5c106cde.pth',
@@ -16,8 +18,9 @@ model_urls = {
 
 
 def conv3x3(in_planes, out_planes, stride=1):
-    """3x3 convolution with padding."""
-    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride, padding=1, bias=False)
+    """3x3 convolution with padding"""
+    return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
+                     padding=1, bias=False)
 
 
 class BasicBlock(nn.Module):
@@ -154,12 +157,9 @@ def init_dist_weights(model):
     # https://arxiv.org/pdf/1706.02677.pdf
     # https://github.com/pytorch/examples/pull/262
     for m in model.modules():
-        if isinstance(m, BasicBlock):
-            m.bn2.weight = nn.Parameter(torch.zeros_like(m.bn2.weight))
-        if isinstance(m, Bottleneck):
-            m.bn3.weight = nn.Parameter(torch.zeros_like(m.bn3.weight))
-        if isinstance(m, nn.Linear):
-            m.weight.data.normal_(0, 0.01)
+        if isinstance(m, BasicBlock): m.bn2.weight = nn.Parameter(torch.zeros_like(m.bn2.weight))
+        if isinstance(m, Bottleneck): m.bn3.weight = nn.Parameter(torch.zeros_like(m.bn3.weight))
+        if isinstance(m, nn.Linear): m.weight.data.normal_(0, 0.01)
 
 
 def resnet18(pretrained=False, **kwargs):
@@ -193,10 +193,8 @@ def resnet50(pretrained=False, bn0=False, **kwargs):
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
     model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
-    if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['resnet50']))
-    if bn0:
-        init_dist_weights(model)
+    if pretrained: model.load_state_dict(model_zoo.load_url(model_urls['resnet50']))
+    if bn0: init_dist_weights(model)
     return model
 
 
