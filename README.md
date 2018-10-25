@@ -52,3 +52,6 @@ Test:  [21][7/7]        Time 0.105 (0.432)      Loss 1.4089 (1.3346)    Acc@1 67
 ```
 
 The last number indicates that at epoch 21 the run got 67.462 top-1 test accuracy and 88.124 top-5 test accuracy.
+
+# Other notes
+If you run locally, you may need to download imagenet yourself, follow instructions here -- https://github.com/diux-dev/cluster/tree/master/pytorch#data-preparation
