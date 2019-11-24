@@ -1,3 +1,4 @@
+# OBSOLETE, USE imagenet18 instead 
 Code to reproduce ImageNet in 18 minutes, by Andrew Shaw, Yaroslav Bulatov, and Jeremy Howard. High-level overview of techniques used is [here](http://fast.ai/2018/08/10/fastai-diu-imagenet/)
 
 
